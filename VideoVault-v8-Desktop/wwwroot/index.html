@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0d14">
+<title>VideoVault · YouTube, TikTok & Instagram downloader</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor"/></svg></div><div><strong>VideoVault</strong><span>YOUR MEDIA TOOLKIT</span></div></div>
+    <div class="nav-heading">WORKSPACE</div>
+    <button type="button" id="navDownloader" class="nav-item active" aria-current="page"><span class="nav-icon">▣</span> Downloader <span class="nav-active-dot"></span></button>
+    <button type="button" id="navUniversal" class="nav-item"><span class="nav-icon">◎</span> Universal <span class="nav-active-dot"></span></button>
+    <div class="sidebar-bottom"><div class="local-indicator"><span class="green-dot"></span> Local server <span id="serverState">Checking…</span></div><p>Private by default.<br>Your downloads stay on your PC.</p><div class="version">VIDEOVAULT <b>V8</b></div></div>
+  </aside>
+  <main class="content">
+    <div class="topbar"><div class="crumb">Workspace <span>/</span> <strong id="currentSection">Downloader</strong></div><div class="top-right"><span class="top-pill"><span class="green-dot"></span> Local app</span><span class="avatar">V</span></div></div>
+    <div class="page" id="downloaderPage">
+      <div class="eyebrow"><span class="eyebrow-line"></span> YOUR ALL-IN-ONE DOWNLOADER</div>
+      <h1>Save videos.<br><span>Keep the moments.</span></h1>
+      <p class="intro">Download videos you're allowed to save from YouTube, TikTok and public Instagram Reels. Paste a link, choose your quality, and you're set.</p>
+      <div class="platforms"><span class="platform-pill"><span class="youtube-symbol">▶</span> YouTube</span><span class="platform-pill"><span class="tiktok-symbol">♪</span> TikTok</span><span class="platform-pill">◎ Instagram</span><span class="platform-note">Three platforms. One place.</span></div>
+
+      <section class="panel input-panel">
+        <div class="section-top"><div><div class="step">01 <span>/ PASTE LINK</span></div><h2>Find your video</h2></div><span class="section-icon">↗</span></div>
+        <label for="url">Video URL</label>
+        <div class="inputrow"><div class="input-wrap"><span class="link-icon">↗</span><input id="url" type="url" placeholder="Paste a YouTube video, playlist, TikTok, or Instagram Reel link here…" autocomplete="off" spellcheck="false"></div><button id="find" class="primary-button">Find video <span>→</span></button></div>
+        <div class="hint-row"><span>✦</span> Supports YouTube videos, playlists, TikTok and Instagram links</div>
+        <p id="message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="details" class="panel results-panel" hidden>
+        <div class="section-top"><div><div class="step">02 <span>/ VIDEO DETAILS</span></div><h2>Ready to download</h2></div><span id="platformBadge" class="detected-badge">VIDEO</span></div>
+        <div class="video"><div class="thumbnail-wrap"><img id="thumbnail" alt="Video thumbnail"><span class="thumb-overlay">PREVIEW</span></div><div class="video-info"><span class="video-type">VIDEO FOUND <span class="success-dot"></span></span><h3 id="title"></h3><p id="author"></p></div></div>
+        <div class="divider"></div>
+        <div class="download-grid"><div><label for="quality">Download quality</label><select id="quality"></select></div><div class="format-choice"><label for="outputFormat">Output format</label><select id="outputFormat" aria-label="Output format"><option value="mp4">MP4 · Video</option><option value="mp3">MP3 · Audio</option></select></div></div>
+        <label class="check"><input id="permission" type="checkbox"><span>I own this video or have permission to download it.</span></label>
+        <button id="download" class="primary-button download-button" disabled><span>↓</span> <span id="downloadText">Download video</span> <span>→</span></button>
+        <div id="progressBox" class="progress-box" hidden><div class="progress-head"><span>Download progress</span><span id="progressPercent">0%</span></div><div class="bar"><div id="progress"></div></div><p id="status" role="status"></p></div>
+      </section>
+      <section id="playlistPanel" class="panel results-panel" hidden>
+        <div class="section-top"><div><div class="step">02 <span>/ PLAYLIST</span></div><h2 id="playlistHeading">Playlist videos</h2></div><span class="detected-badge">YOUTUBE PLAYLIST</span></div>
+        <p class="playlist-note">Choose videos, then select MP4 or MP3. VideoVault downloads them sequentially. Your browser/WebView2 may ask permission for multiple downloads.</p>
+        <div class="download-grid"><div><label for="playlistFormat">Output format</label><select id="playlistFormat"><option value="mp4">MP4 · Video</option><option value="mp3">MP3 · Audio</option></select></div>
+        <div><label for="playlistQuality">Quality preference</label><select id="playlistQuality"><option value="best">Best available</option><option value="1080">Up to 1080p</option><option value="720">Up to 720p</option><option value="480">Up to 480p</option><option value="360">Up to 360p</option></select></div></div>
+        <div class="playlist-actions"><button id="playlistSelectAll" class="secondary-button">Select all</button><button id="playlistSelectNone" class="secondary-button">Select none</button><span id="playlistCount"></span></div>
+        <div id="playlistItems" class="playlist-items"></div>
+        <label class="check"><input id="playlistPermission" type="checkbox"><span>I own these videos or have permission to download them.</span></label>
+        <div class="playlist-actions"><button id="playlistStart" class="primary-button" disabled>↓ Download selected</button><button id="playlistCancel" class="secondary-button" disabled>Stop after current</button></div>
+        <p id="playlistStatus" class="message" role="status" aria-live="polite"></p>
+        <div id="playlistCurrentBox" class="progress-box" hidden>
+          <div class="progress-head"><span id="playlistCurrentLabel">Current video</span><span id="playlistCurrentPercent">0%</span></div>
+          <div class="bar"><div id="playlistCurrentProgress"></div></div>
+          <p id="playlistCurrentStage" class="playlist-stage" role="status" aria-live="polite">Preparing…</p>
+        </div>
+        <div class="progress-box"><div class="progress-head"><span>Overall playlist progress</span><span id="playlistPercent">0 / 0</span></div><div class="bar"><div id="playlistProgress"></div></div></div>
+      </section>
+      <div class="bottom-note"><span>◈</span> Powered by YoutubeExplode + Tikwm + yt-dlp <span class="separator">·</span> Dedicated YouTube & TikTok engines</div>
+    </div>
+    <div class="page" id="universalPage" hidden>
+      <div class="eyebrow"><span class="eyebrow-line"></span> POWERED BY YT-DLP</div>
+      <h1>One link.<br><span>More websites.</span></h1>
+      <p class="intro">Universal downloads for supported sites like Instagram, Facebook, Reddit, Vimeo, and more. YouTube and TikTok still use their original engines in Downloader.</p>
+      <div class="platforms"><span class="platform-pill">◎ Instagram</span><span class="platform-pill">f Facebook</span><span class="platform-pill">◈ Reddit</span><span class="platform-pill">▶ Vimeo</span><span class="platform-note">Availability depends on yt-dlp and the website.</span></div>
+      <section class="panel input-panel">
+        <div class="section-top"><div><div class="step">01 <span>/ UNIVERSAL LINK</span></div><h2>Find media</h2></div><span class="section-icon">↗</span></div>
+        <label for="universalUrl">Media URL</label>
+        <div class="inputrow"><div class="input-wrap"><span class="link-icon">↗</span><input id="universalUrl" type="url" placeholder="Paste an Instagram, Facebook, Reddit, Vimeo… URL" autocomplete="off" spellcheck="false"></div><button type="button" id="universalFind" class="primary-button">Find media <span>→</span></button></div>
+        <div class="hint-row"><span>✦</span> Public, accessible videos · One item per download · yt-dlp.exe required</div>
+        <p id="universalMessage" class="message" role="status" aria-live="polite"></p>
+      </section>
+      <section id="universalDetails" class="panel results-panel" hidden>
+        <div class="section-top"><div><div class="step">02 <span>/ MEDIA DETAILS</span></div><h2>Ready to download</h2></div><span id="universalPlatform" class="detected-badge">UNIVERSAL</span></div>
+        <div class="video"><div class="thumbnail-wrap"><img id="universalThumbnail" alt="Media thumbnail"><span class="thumb-overlay">PREVIEW</span></div><div class="video-info"><span class="video-type">MEDIA FOUND <span class="success-dot"></span></span><h3 id="universalTitle"></h3><p id="universalAuthor"></p></div></div>
+        <div class="divider"></div>
+        <div class="download-grid"><div><label for="universalQuality">Download quality</label><select id="universalQuality"><option value="universal-mp4">MP4 · best available</option><option value="universal-mp3">MP3 · audio only</option></select></div><div><label for="universalFormat">Output format</label><select id="universalFormat"><option value="mp4">MP4 · Video</option><option value="mp3">MP3 · Audio</option></select></div></div>
+        <label class="check"><input id="universalPermission" type="checkbox"><span>I own this media or have permission to download it.</span></label>
+        <button type="button" id="universalDownload" class="primary-button download-button" disabled><span>↓</span> <span id="universalDownloadText">Download video</span> <span>→</span></button>
+        <div id="universalProgressBox" class="progress-box" hidden><div class="progress-head"><span>Universal download progress</span><span id="universalPercent">0%</span></div><div class="bar"><div id="universalProgress"></div></div><p id="universalStatus" role="status"></p></div>
+      </section>
+      <div class="bottom-note"><span>◈</span> Universal engine: yt-dlp + FFmpeg <span class="separator">·</span> YouTube & TikTok remain independent</div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

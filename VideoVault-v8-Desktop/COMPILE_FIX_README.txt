@@ -1,0 +1,1 @@
+Fixes CS1061 by removing the unsupported CoreWebView2.AcceleratorKeyPressed event subscription. Window X and Alt+F4 use FormClosing clean shutdown. Ctrl+Q works when the WinForms form receives the key, but may not when WebView2 has keyboard focus. ZIP verified, Windows build not run here.

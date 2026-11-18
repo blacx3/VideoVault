@@ -1,0 +1,5 @@
+D:\videovault test\VideoVault-v8-Desktop-Universal-Tab-Beta\VideoVault-v8-Desktop\publish\VideoVault.pdb
+D:\videovault test\VideoVault-v8-Desktop-Universal-Tab-Beta\VideoVault-v8-Desktop\publish\Microsoft.Web.WebView2.Core.xml
+D:\videovault test\VideoVault-v8-Desktop-Universal-Tab-Beta\VideoVault-v8-Desktop\publish\Microsoft.Web.WebView2.WinForms.xml
+D:\videovault test\VideoVault-v8-Desktop-Universal-Tab-Beta\VideoVault-v8-Desktop\publish\Microsoft.Web.WebView2.Wpf.xml
+D:\videovault test\VideoVault-v8-Desktop-Universal-Tab-Beta\VideoVault-v8-Desktop\publish\VideoVault.exe
